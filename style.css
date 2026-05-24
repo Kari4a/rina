@@ -1,0 +1,1393 @@
+html {
+	scroll-behavior: smooth;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Arial", sans-serif;
+	background-color: #f4f4f4;
+}
+/* Базовые стили для ПК-версии (кнопка скрыта) */
+.menu-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 30px;
+	height: 21px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	z-index: 1001;
+}
+
+.menu-toggle span {
+	display: block;
+	width: 100%;
+	height: 3px;
+	background-color: #333;
+	border-radius: 3px;
+	transition: all 0.3s ease-in-out;
+}
+
+/* ==========================================
+   Адаптивные стили для телефона (до 768px)
+   ========================================== */
+@media (max-width: 768px) {
+	.nav-container {
+		position: relative;
+		justify-content: space-between;
+		flex-direction: row !important; /* Оставляем логотип и гамбургер в одну линию */
+		padding: 15px 20px;
+	}
+
+	.menu-toggle {
+		display: flex; /* Показываем кнопку гамбургера на смартфонах */
+	}
+
+	/* Прячем обычное меню за верхний край экрана */
+	.nav-links {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 100%; /* Появится ровно под шапкой */
+		left: 0;
+		width: 100%;
+		background-color: #ffffff;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		padding: 20px 0;
+		gap: 20px;
+		text-align: center;
+		transform: translateY(-150%); /* Сдвигаем наверх, чтобы скрыть */
+		opacity: 0;
+		transition:
+			transform 0.4s ease,
+			opacity 0.3s ease;
+		z-index: 999;
+	}
+
+	/* Класс, который JS будет добавлять при клике для открытия меню */
+	.nav-links.active {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	/* Анимация превращения гамбургера в крестик при открытии */
+	.menu-toggle.active span:nth-child(1) {
+		transform: translateY(9px) rotate(45deg);
+	}
+	.menu-toggle.active span:nth-child(2) {
+		opacity: 0;
+	}
+	.menu-toggle.active span:nth-child(3) {
+		transform: translateY(-9px) rotate(-45deg);
+	}
+}
+/* --- СТИЛИ ДЛЯ КОМПЬЮТЕРОВ (Базовая сетка) --- */
+
+/* Контейнер для карточек */
+.cardso-container {
+	display: flex;
+	flex-wrap: wrap; /* Разрешаем перенос, если карточки не влезают */
+	gap: 20px; /* Отступы между карточками */
+	justify-content: center; /* Центрируем карточки по горизонтали */
+	padding: 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* Сама карточка */
+.cardso {
+	flex: 1 1 calc(33.333% - 20px); /* Три карточки в ряд с учетом gaps */
+	min-width: 280px; /* Минимальная ширина, чтобы карточка не сжималась в кашу */
+	max-width: 380px; /* Ограничение максимальной ширины */
+	background: #ffffff;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column; /* Элементы внутри карточки идут сверху вниз */
+}
+
+/* Блок с картинкой */
+.card-img-box {
+	width: 100%;
+	height: 200px; /* Фиксированная высота для выравнивания */
+	overflow: hidden;
+}
+
+.card-img-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Картинка заполняет блок без искажения пропорций */
+}
+
+/* Текстовый блок карточки */
+.cardso-body {
+	padding: 15px;
+	flex-grow: 1; /* Растягивает блок, чтобы кнопка «Подробнее» была на одном уровне */
+}
+
+.cardso-body h3 {
+	margin: 0 0 10px 0;
+	font-size: 20px;
+}
+
+/* --- АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ (экраны меньше 768px) --- */
+@media (max-width: 768px) {
+	/* Заголовок страницы */
+	.heros-text h1 {
+		font-size: 26px;
+		line-height: 1.3;
+		text-align: center;
+		padding: 0 10px;
+	}
+
+	/* Контейнер карточек */
+	.cardso-container {
+		flex-direction: column; /* Выстраиваем карточки строго одна под другой */
+		align-items: center; /* Центрируем их на экране */
+		gap: 15px; /* Немного уменьшаем расстояние между карточками */
+		padding: 10px;
+	}
+
+	/* Карточка на мобильном */
+	.cardso {
+		flex: 1 1 100%; /* Карточка занимает всю доступную ширину */
+		width: 100%;
+		max-width: 100%; /* Позволяет карточке растягиваться на весь экран смартфона */
+	}
+
+	/* Картинка на мобильном */
+	.card-img-box {
+		height: 180px; /* Слегка уменьшаем высоту картинки */
+	}
+}
+/* --- СТИЛИ ДЛЯ КОМПЬЮТЕРОВ (Базовый слой) --- */
+
+/* Задний фон (Overlay) */
+#id892-workout-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(5px); /* Легкое размытие заднего плана */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	opacity: 1;
+	transition: opacity 0.3s ease;
+}
+
+/* Класс для скрытия окна (переключается через JS) */
+.id892-modal-hidden {
+	display: none !important;
+}
+
+/* Окно с контентом */
+.id892-modal-content-window {
+	background: #ffffff;
+	width: 90%;
+	max-width: 600px;
+	max-height: 85vh; /* Ограничение по высоте, чтобы не вылезало за экран */
+	border-radius: 16px;
+	padding: 30px;
+	position: relative;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	overflow-y: auto; /* Включаем внутренний скролл, если контента много */
+}
+
+/* Кнопка закрытия (крестик) */
+.id892-modal-close-trigger {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	background: none;
+	border: none;
+	font-size: 32px;
+	cursor: pointer;
+	color: #333;
+	line-height: 1;
+}
+
+/* Бейдж с калориями */
+.id892-modal-badge {
+	display: inline-block;
+	background-color: #fff0ec;
+	color: #ff4500;
+	padding: 8px 16px;
+	border-radius: 20px;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+/* Блоки с упражнениями и планом */
+.id892-modal-info-section {
+	margin-top: 20px;
+}
+
+.id892-modal-info-section h3 {
+	font-size: 18px;
+	margin-bottom: 10px;
+	color: #222;
+}
+
+.id892-modal-info-section p {
+	font-size: 15px;
+	line-height: 1.6;
+	color: #555;
+}
+
+/* Ссылки на видео */
+.id892-video-link {
+	color: #007bff;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+/* --- АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ (экраны меньше 768px) --- */
+@media (max-width: 768px) {
+	/* Центрируем окно по нижней части или по центру */
+	#id892-workout-modal-overlay {
+		align-items: center; /* Центрируем по вертикали */
+		padding: 10px;
+	}
+
+	.id892-modal-content-window {
+		width: 100%; /* Занимает всю ширину экрана с учетом отступов padding у overlay */
+		max-height: 90vh; /* Увеличиваем доступную высоту на мобильном */
+		padding: 24px 16px 16px 16px; /* Меньше отступы по бокам, чтобы сберечь место */
+		border-radius: 12px;
+	}
+
+	/* Увеличиваем кнопку закрытия, чтобы по ней было легко попасть пальцем */
+	.id892-modal-close-trigger {
+		top: 10px;
+		right: 15px;
+		font-size: 36px;
+		width: 44px; /* Размер зоны клика по стандарту Apple/Google */
+		height: 44px;
+	}
+
+	/* Заголовок тренировки на мобильном */
+	#id892-modal-text-title {
+		font-size: 22px;
+		padding-right: 30px; /* Чтобы длинное название не налезло на крестик */
+		margin-top: 5px;
+	}
+
+	/* Текст внутри секций */
+	.id892-modal-info-section h3 {
+		font-size: 16px;
+	}
+
+	.id892-modal-info-section p {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	/* Ссылки на видео делаем крупнее, чтобы по ним было удобно тапать */
+	.id892-video-link {
+		display: inline-block;
+		padding: 2px 0;
+	}
+}
+
+.main-header {
+	/* Фиксируем шапку в самом верху */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #fdffe0;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000; /* Чтобы шапка была поверх всего */
+	transition: all 0.3s ease; /* Для плавной анимации из JS */
+}
+
+.nav-container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+}
+
+.logo {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+}
+
+.logo span {
+	color: #7fb069;
+}
+
+.nav-links {
+	display: flex;
+	list-style: none;
+	gap: 30px;
+}
+
+.nav-links a {
+	text-decoration: none;
+	color: #333;
+	font-weight: 500;
+	transition: 0.3s;
+}
+
+.nav-links a:hover {
+	color: #ff4757;
+}
+
+/* Класс, который добавляется через JS при скролле */
+.main-header.scrolled {
+	height: 60px;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(5px);
+}
+#mainpng {
+	width: 100%;
+	height: auto;
+}
+
+/* Общие стили */
+body {
+	font-family: "Arial", sans-serif;
+	margin: 0;
+	color: #333;
+	line-height: 1.6;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Шапка */
+.header {
+	padding: 20px 0;
+	border-bottom: 1px solid #eee;
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu {
+	display: flex;
+	list-style: none;
+	gap: 20px;
+}
+
+/* Первый экран (Hero) */
+.hero {
+	padding: 100px 0;
+	text-align: center;
+	background-color: #f9f9f9;
+	position: relative;
+	overflow: hidden;
+	background-image: url("concept-tasty-food.jpg");
+	background-size: cover;
+	height: 500px;
+	background-position: 0px -100px;
+}
+
+.hero p {
+	display: inline-block; /* Чтобы фон был только под текстом */
+	background-color: #ffffff; /* Белый фон */
+	color: #7fb069; /* Зеленый текст в цвет фона секции */
+	padding: 10px 25px;
+	border-radius: 50px; /* Закругленные края */
+	font-weight: 800;
+	text-transform: uppercase; /* Все заглавные */
+	letter-spacing: 1px;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+	font-size: 48px;
+	margin-bottom: 20px;
+}
+
+.hero-img {
+	max-width: 600px;
+	margin-top: 40px;
+}
+
+.btn {
+	background-color: #78b13f;
+	color: white;
+	padding: 15px 30px;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+/* Карточки меню */
+.our-menu {
+	padding: 80px 0;
+	text-align: center;
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+	margin-top: 40px;
+	justify-content: center;
+}
+
+.card {
+	background: #fff;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+	transition: 0.3s;
+}
+
+.card:hover {
+	transform: translateY(-10px);
+}
+
+.card img {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.typewriter-container {
+	display: inline-block;
+}
+
+.typewriter-text {
+	font-family:
+		"Courier New", Courier, monospace; /* Лучше всего для этого эффекта */
+	font-size: 2.5rem;
+	font-weight: bold;
+	overflow: hidden; /* Скрывает буквы, которые еще не "напечатаны" */
+	border-right: 3px solid #a8e4a0; /* Каретка (курсор) */
+	white-space: nowrap; /* Запрещает перенос строки */
+	margin: 0 auto;
+	width: 0; /* Начальное состояние */
+
+	/* Анимация печати и мигания курсора */
+	animation:
+		typing 2s steps(9, end) forwards,
+		blink-caret 0.75s step-end infinite;
+}
+
+/* Эффект печати: увеличиваем ширину от 0 до конца текста */
+@keyframes typing {
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+/* Эффект мигания курсора */
+@keyframes blink-caret {
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: #a8e4a0;
+	}
+}
+
+/* Основной контейнер секции */
+.about {
+	padding: 80px 0;
+	background-color: #ffffff;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Ограничитель ширины по центру */
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Сетка: 2 колонки одинаковой ширины */
+.about-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 50px;
+	align-items: center; /* Центрирование по вертикали */
+}
+
+/* Стили для текста */
+.about-text h2 {
+	font-size: 32px;
+	color: #2d3436;
+	margin-bottom: 25px;
+	line-height: 1.2;
+}
+
+.about-text p {
+	font-size: 18px;
+	line-height: 1.6;
+	color: #636e72;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+	.about-grid {
+		grid-template-columns: 1fr; /* Колонки встают друг под друга */
+		gap: 30px;
+		text-align: center;
+	}
+
+	.about-text h2 {
+		font-size: 42px;
+		background: linear-gradient(90deg, #2d3436, var(--accent-color));
+		-webkit-text-fill-color: transparent;
+		margin-bottom: 20px;
+		font-size: 26px;
+	}
+}
+
+:root {
+	--accent-color: #7fb069;
+	--soft-green: #e9f5e6;
+}
+
+.about {
+	padding: 100px 0;
+	background: linear-gradient(180deg, #fff 0%, var(--soft-green) 100%);
+	overflow: hidden;
+}
+
+/* Эффект при наведении на картинку */
+.about-img {
+	position: relative;
+	transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.about-img:hover {
+	transform: scale(1.03) rotate(-1deg);
+}
+
+.about-img img {
+	width: 100%;
+	border-radius: 40px;
+	box-shadow: 0 30px 60px rgba(127, 176, 105, 0.2);
+	transition: box-shadow 0.3s ease;
+	width: 100%;
+	height: auto;
+	border-radius: 30px; /* Закругленные углы как на макете */
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+	display: block;
+}
+
+.about-img:hover img {
+	box-shadow: 0 40px 80px rgba(127, 176, 105, 0.4);
+}
+
+/* Декоративный элемент сзади (кружок) */
+.about-img::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: var(--accent-color);
+	border-radius: 40px;
+	top: 20px;
+	left: -20px;
+	z-index: -1;
+	opacity: 0.1;
+}
+
+/* Начальное состояние для появления через JS */
+.reveal {
+	opacity: 0;
+	transform: translateY(50px);
+	transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Основная секция */
+.dep {
+	padding: 100px 0;
+	background-color: #f8f9fa; /* Светлый нейтральный фон */
+	font-family: "Montserrat", sans-serif; /* Популярный шрифт для фитнеса */
+	overflow: hidden;
+}
+
+.containers {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Сетка */
+.heros-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 80px;
+	align-items: center;
+}
+
+/* Текстовый блок */
+.heros-text h1 {
+	font-size: 54px;
+	line-height: 1.1;
+	color: #2d2d2d;
+	margin-bottom: 30px;
+	font-weight: 800;
+}
+
+/* Выделение маркером */
+.heros-text h1 span {
+	position: relative;
+	white-space: nowrap;
+	z-index: 1;
+}
+
+.heros-text h1 span::after {
+	content: "";
+	position: absolute;
+	left: -5px;
+	bottom: 5px;
+	width: 105%;
+	height: 18px;
+	background-color: #b6f1a4; /* Тот самый лимонный цвет */
+	z-index: -1;
+	transform: rotate(-1deg);
+	border-radius: 4px;
+}
+
+/* Адаптив под планшеты и мобилки */
+@media (max-width: 992px) {
+	.heros-grid {
+		grid-template-columns: 1fr;
+		text-align: center;
+		gap: 50px;
+	}
+
+	.heros-text h1 {
+		font-size: 40px;
+	}
+}
+
+/* Контейнер для карточек (исправляем опечатку в вашем классе) */
+.cardss {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+/* Стили для самой карточки */
+.cardes,
+.cardss div {
+	width: 300px; /* Задайте нужную ширину карточки */
+	background: #fff;
+	border-radius: 12px;
+	overflow: hidden; /* Чтобы картинка не вылезала за скругленные углы */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Магия для картинок */
+.cardes img,
+.cardss img {
+	width: 100%; /* Растягиваем на всю ширину карточки */
+	height: 200px; /* Фиксированная высота для всех фото */
+	object-fit: cover; /* Картинка обрезается по центру, сохраняя пропорции */
+	display: block;
+}
+
+/* Отступы для текста внутри */
+.cardes h3,
+.cardes p {
+	padding: 0 15px;
+}
+/* Контейнер всей секции */
+.hero-section {
+	padding: 60px 20px;
+	background-color: #fafafa;
+	font-family:
+		"Inter",
+		-apple-system,
+		sans-serif;
+}
+
+/* Главный текстовый блок */
+.heros-text {
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+/* Стилизация заголовка */
+.heros-text h1 {
+	font-size: 2.5rem;
+	color: #111111;
+	margin-bottom: 40px;
+	font-weight: 800;
+	letter-spacing: -0.5px;
+}
+
+/* Сетка для карточек (в одну строку, адаптивная) */
+.cardso-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 30px;
+	margin-top: 20px;
+}
+
+/* Стили отдельной карточки */
+.cardso {
+	background: #ffffff;
+	border-radius: 16px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	transition:
+		transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+		box-shadow 0.3s ease;
+}
+
+/* Эффект при наведении на карточку */
+.cardso:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Обертка для изображений */
+.card-img-box {
+	width: 100%;
+	height: 220px;
+	overflow: hidden;
+	background-color: #eee;
+}
+
+.card-img-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Изображение идеально заполняет блок */
+	transition: transform 0.5s ease;
+}
+
+/* Зум картинки при наведении */
+.card:hover .card-img-box img {
+	transform: scale(1.04);
+}
+
+/* Внутренние отступы текста в карточке */
+.cardso-body {
+	padding: 24px;
+	text-align: left;
+}
+
+.cardso-body h3 {
+	margin: 0 0 10px 0;
+	font-size: 1.25rem;
+	color: #1a1a1a;
+	font-weight: 700;
+}
+
+.cardso-body p {
+	margin: 0;
+	font-size: 0.95rem;
+	color: #666666;
+	font-weight: 500;
+}
+
+.cardso-footer {
+	height: 6px;
+
+	margin-top: auto; /* Всегда прижат к низу */
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.cardso:hover .card-footer {
+	opacity: 1;
+}
+
+/* Стили для подвала сайта (Footer) */
+.main-footer {
+	background-color: #1a1a1a;
+	color: #ffffff;
+	padding: 60px 0 20px 0;
+	font-family: sans-serif;
+	margin-top: 80px;
+}
+
+.footer-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 40px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.footer-brand {
+	flex: 1;
+	min-width: 250px;
+	margin-top: 70px;
+}
+
+.footer-brand .logo {
+	font-size: 24px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	margin-bottom: 15px;
+}
+
+.footer-brand .logo span {
+	color: #7fb069;
+}
+
+.footer-tagline {
+	color: #917f7f;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
+.footer-links,
+.footer-contacts {
+	flex: 1;
+	min-width: 200px;
+}
+
+.main-footer h4 {
+	font-size: 18px;
+	margin-bottom: 20px;
+	position: relative;
+	padding-bottom: 8px;
+}
+
+.main-footer h4::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 40px;
+	height: 2px;
+	background-color: #7fb069;
+}
+
+.footer-links ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.footer-links li {
+	margin-bottom: 12px;
+}
+
+.footer-links a {
+	color: #726060;
+	text-decoration: none;
+	transition: color 0.3s ease;
+	font-size: 15px;
+}
+
+.footer-links a:hover {
+	color: #746868;
+}
+
+.footer-contacts p {
+	color: #837777;
+	font-size: 15px;
+	margin-bottom: 15px;
+}
+
+.footer-contacts a {
+	color: #7a7878;
+	text-decoration: none;
+}
+
+.social-icons {
+	display: flex;
+	gap: 15px;
+	margin-top: 15px;
+}
+
+.social-icons a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50px;
+	background-color: #333333;
+	color: #e7d6d6;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	transition:
+		background-color 0.3s ease,
+		transform 0.2s ease;
+}
+
+.social-icons a:hover {
+	background-color: #7fb069;
+	transform: translateY(-3px);
+}
+
+.footer-bottom {
+	text-align: center;
+	margin-top: 5px;
+	padding-top: 20px;
+	border-top: 1px solid #333333;
+	font-size: 13px;
+	color: #666666;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+	.footer-container {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.main-footer h4::after {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.social-icons {
+		justify-content: center;
+	}
+}
+/* Выравнивание элементов в самом низу */
+.footer-bottom-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+	gap: 15px;
+}
+
+/* Блок оценки проекта */
+.project-rating {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 14px;
+	color: #b3b3b3;
+}
+
+/* Красивое оформление кнопки лайка */
+.like-button {
+	background-color: #2a2a2a;
+	border: 1px solid #444;
+	color: #fff;
+	padding: 6px 14px;
+	border-radius: 20px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.like-button:hover {
+	background-color: #333;
+	border-color: #666;
+}
+
+#icon-heart {
+	color: #666;
+	transition:
+		transform 0.3s ease,
+		color 0.3s ease;
+	display: inline-block;
+}
+
+.like-button:hover #icon-heart {
+	transform: scale(1.2);
+	color: #ff4757;
+}
+
+/* Стили для состояния, когда пользователь уже проголосовал */
+.like-button.active-voted {
+	background-color: rgba(255, 71, 87, 0.1);
+	border-color: #ff4757;
+	color: #ff4757;
+}
+
+.like-button.active-voted #icon-heart {
+	color: #ff4757;
+	animation: pulse 1s infinite alternate;
+}
+
+/* Анимация пульсации для сердечка */
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1.15);
+	}
+}
+
+/* Мобильная адаптивность для нижней панели */
+@media (max-width: 768px) {
+	.footer-bottom-content {
+		flex-direction: column;
+		text-align: center;
+	}
+}
+/* Базовые стили для карточек (чтобы выглядели аккуратно) */
+.cards {
+	display: flex;
+	gap: 20px;
+	font-family: Arial, sans-serif;
+}
+.card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 15px;
+	width: 250px;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.card img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+/* Стили модального окна */
+.modal {
+	display: none; /* Скрыто по умолчанию */
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+	align-items: center;
+	justify-content: center;
+}
+
+/* Контент внутри модального окна */
+.modal-content {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 500px;
+	position: relative;
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-size: 28px;
+	cursor: pointer;
+	color: #aaa;
+}
+.close-btn:hover {
+	color: #000;
+}
+
+/* Контейнер кулинарных карточек */
+.food-app-cards-container {
+	display: flex;
+	gap: 24px;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-family:
+		system-ui,
+		-apple-system,
+		sans-serif;
+	padding: 20px;
+}
+
+/* Стилизация карточки еды */
+.food-app-card {
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	width: 260px;
+	overflow: hidden;
+	cursor: pointer;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+	background: #ffffff;
+}
+
+.food-app-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Обертка картинки — защита от съезжания и деформации */
+.food-app-img-wrapper {
+	width: 100%;
+	height: 180px;
+	overflow: hidden;
+}
+
+.food-app-img-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Заполняет весь блок без сжатия */
+	object-position: center; /* Центрирует картинку по осям */
+	display: block;
+}
+
+.food-app-card-body {
+	padding: 16px;
+}
+
+.food-app-card-body h3 {
+	margin: 0 0 6px 0;
+	font-size: 18px;
+	color: #1a202c;
+}
+
+.food-app-card-body p {
+	margin: 0;
+	color: #718096;
+	font-size: 14px;
+}
+
+/* Модальное окно (Задний полупрозрачный фон) */
+#food-app-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 9999; /* Поверх любых других элементов */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Вспомогательный класс для скрытия окна */
+#food-app-modal-overlay.food-app-modal-hidden {
+	display: none !important;
+}
+
+/* Окно с рецептом */
+.food-app-modal-window {
+	background-color: #ffffff;
+	padding: 32px;
+	border-radius: 16px;
+	width: 90%;
+	max-width: 480px;
+	position: relative;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+	font-family:
+		system-ui,
+		-apple-system,
+		sans-serif;
+	line-height: 1.6;
+}
+
+/* Кнопка закрытия модалки */
+.food-app-modal-close-trigger {
+	position: absolute;
+	top: 16px;
+	right: 20px;
+	font-size: 32px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #a0aec0;
+	line-height: 1;
+	padding: 0;
+}
+
+.food-app-modal-close-trigger:hover {
+	color: #2d3748;
+}
+
+#food-app-modal-header-title {
+	margin: 0 0 4px 0;
+	font-size: 24px;
+	color: #1a202c;
+	padding-right: 24px;
+}
+
+#food-app-modal-header-weight {
+	font-size: 14px;
+	color: #319795;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+
+.food-app-modal-section h3 {
+	font-size: 16px;
+	color: #4a5568;
+	margin: 16px 0 6px 0;
+	border-bottom: 1px solid #edf2f7;
+	padding-bottom: 4px;
+}
+
+.food-app-modal-section p {
+	margin: 0;
+	color: #2d3748;
+	font-size: 15px;
+}
+/* Базовые стили для вашей структуры карточек */
+.cardso-container {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-family: Arial, sans-serif;
+	padding: 20px;
+}
+
+.cardso {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	width: 250px;
+	overflow: hidden;
+	cursor: pointer;
+	transition:
+		transform 0.2s,
+		box-shadow 0.2s;
+	background: #fff;
+}
+
+.cardso:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Фикс картинок — защита от съезжания влево */
+.card-img-box {
+	width: 100%;
+	height: 180px;
+	overflow: hidden;
+}
+
+.card-img-box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+}
+
+.cardso-body {
+	padding: 15px;
+}
+
+/* Уникальные стили модального окна */
+#id892-workout-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 99999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#id892-workout-modal-overlay.id892-modal-hidden {
+	display: none !important;
+}
+
+.id892-modal-content-window {
+	background-color: #ffffff;
+	padding: 30px;
+	border-radius: 12px;
+	width: 90%;
+	max-width: 460px;
+	position: relative;
+	font-family: Arial, sans-serif;
+	line-height: 1.5;
+}
+
+.id892-modal-close-trigger {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-size: 30px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #aaa;
+}
+
+.id892-modal-close-trigger:hover {
+	color: #000;
+}
+
+.id892-modal-badge {
+	display: inline-block;
+	background: #fff3cd;
+	color: #856404;
+	padding: 6px 12px;
+	border-radius: 6px;
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+.id892-modal-info-section h3 {
+	font-size: 16px;
+	margin: 15px 0 5px 0;
+	color: #333;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 3px;
+}
+
+.id892-modal-info-section p {
+	margin: 0;
+	color: #666;
+}
+/* Стилизация ссылок на видеоинструкции */
+.id892-video-link {
+	color: #3182ce;
+	text-decoration: underline;
+	font-weight: 600;
+	transition: color 0.2s ease;
+}
+
+.id892-video-link:hover {
+	color: #2b6cb0;
+	text-decoration: none;
+}

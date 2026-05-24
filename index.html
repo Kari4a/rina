@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<header class="main-header">
+    <nav class="nav-container">
+        <div class="logo">FIT<span>LIFE</span></div>
+        
+        
+        <button class="menu-toggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="#food">Еда</a></li>
+            <li><a href="#workouts">Тренировки</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+		<main >
+		
+			<section class="hero">
+				<div id="food" class="container hero-content">
+					<h1>Вкусно Удобно Полезно</h1>
+					<p>Минимум денег, минимум времени, максимум пользы</p>
+				</div>
+			</section>
+
+			
+			<section class="our-menu container">
+				<div class="typewriter-container">
+					<h2 class="typewriter-text">Идеи меню</h2>
+				</div>
+
+				<div class="food-app-cards-container">
+    <!-- Карточка 1 -->
+    <div class="food-app-card" 
+         data-food-title="Салат «Цезарь»" 
+         data-food-weight="250 г / 320 ккал"
+         data-food-ingredients="• Куриное филе (обжаренное) — 100 г<br>• Салат Романо — 60 г<br>• Хрустящие сухарики — 30 г<br>• Сыр Пармезан — 20 г<br>• Фирменный соус Цезарь — 40 г"
+         data-food-recipe="1. Нарежьте готовое куриное филе ломтиками.<br>2. Промойте, обсушите и крупно нарвите листья салата.<br>3. Выложите в тарелку салат, курицу и сухарики.<br>4. Заправьте соусом, аккуратно перемешайте и посыпьте тертым пармезаном.">
+        <div class="food-app-img-wrapper">
+            <img src="top-view-caesar-salad-oval-plate-green-white-checkered-tablecloth-dark-red-background.jpg" alt="Салат Цезарь" />
+        </div>
+        <div class="food-app-card-body">
+            <h3>Салат «Цезарь»</h3>
+            <p>250 г / 320 ккал</p>
+        </div>
+        <div class="food-app-card-footer"></div>
+    </div>
+
+    <!-- Карточка 2 -->
+    <div class="food-app-card" 
+         data-food-title="Каша на кокосовом" 
+         data-food-weight="200 г / 510 ккал"
+         data-food-ingredients="• Овсяные хлопья — 60 г<br>• Кокосовое молоко — 150 мл<br>• Вода очищенная — 50 мл<br>• Гранола — 20 г<br>• Свежие ягоды (клубника, голубика) — 20 г"
+         data-food-recipe="1. Смешайте кокосовое молоко с водой в сотейнике и доведите до кипения.<br>2. Всыпьте овсяные хлопья, уменьшите огонь и варите 5-7 минут, помешивая.<br>3. Переложите кашу в глубокую глубокую пиалу.<br>4. Перед подачей украсьте сверху хрустящей гранолой и свежими ягодами.">
+        <div class="food-app-img-wrapper">
+            <img src="top-view-healthy-smoothie-bowl-with-fruits-granola (1).jpg" alt="Каша на кокосовом" />
+        </div>
+        <div class="food-app-card-body">
+            <h3>Каша на кокосовом</h3>
+            <p>200 г / 510 ккал</p>
+        </div>
+        <div class="food-app-card-footer"></div>
+    </div>
+
+    <!-- Карточка 3 -->
+    <div class="food-app-card" 
+         data-food-title="Боул с лососем" 
+         data-food-weight="350 г / 435 ккал"
+         data-food-ingredients="• Слабосоленый лосось — 80 г<br>• Отварной рис — 140 г<br>• Свежий авокадо — 50 г<br>• Огурец — 40 г<br>• Водоросли чука или бобы эдамаме — 40 г"
+         data-food-recipe="1. Выложите теплый отварной рис ровным слоем на дно глубокой глубокой миски.<br>2. Нарежьте филе лосося, авокадо и свежий огурец небольшими одинаковыми кубиками.<br>3. Разложите ингредиенты красивыми группами на поверхности риса.<br>4. Сбоку добавьте бобы или чуку. По желанию полейте соусом понзу.">
+        <div class="food-app-img-wrapper">
+            <img src="salmon-poke-bowl-flat-lay-photography.jpg" alt="Боул с лососем" />
+        </div>
+        <div class="food-app-card-body">
+            <h3>Боул с лососем</h3>
+            <p>350 г / 435 ккал</p>
+        </div>
+    </div>
+</div>
+
+<!-- Изолированное модальное окно рецептов еды -->
+<div id="food-app-modal-overlay" class="food-app-modal-hidden">
+    <div class="food-app-modal-window">
+        <button type="button" class="food-app-modal-close-trigger" aria-label="Закрыть">&times;</button>
+        <h2 id="food-app-modal-header-title">Название блюда</h2>
+        <div id="food-app-modal-header-weight">Вес и калорийность</div>
+        
+        <div class="food-app-modal-section">
+            <h3>Ингредиенты :</h3>
+            <p id="food-app-modal-ingredients-content"></p>
+        </div>
+        
+        <div class="food-app-modal-section">
+            <h3>Способ приготовления:</h3>
+            <p id="food-app-modal-recipe-content"></p>
+        </div>
+    </div>
+</div>
+
+			</section>
+
+			<section class="about">
+				<div class="container">
+					<div class="about-grid">
+						<div class="about-img">
+							<img
+								src="bowl-with-farfalle-pasta-brussels-sprouts-with-bacon-fresh-vegetable-salad-flat-lay-top-view (1) (1).jpg"
+								alt="Процесс готовки"
+							/>
+						</div>
+						<div class="about-text">
+							<h2>Питаться правильно и вкусно — легко</h2>
+							<p>
+								Правильное питание может быть бюджетным, если сделать основу
+								рациона из простых местных продуктов: сезонных овощей (капуста,
+								морковь, свекла), цельных круп (гречка, овсянка, перловка) и
+								доступного белка (яйца, бобовые, субпродукты и недорогая рыба
+								вроде минтая или скумбрии). Экономия достигается за счет отказа
+								от переработанной еды (колбас, сладостей, фастфуда), покупки
+								замороженных овощей вне сезона и планирования меню, что
+								позволяет готовить дома и не тратить лишнее на готовые перекусы.
+								Главный секрет — выбирать цельные продукты, которые не прошли
+								сложную промышленную обработку, так как они одновременно
+								являются самыми дешевыми и максимально полезными для организма.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section class="dep">
+			<section id="workouts" class="hero-section">
+    <div class="heros-text">
+        <h1>
+            Тренировки, которые заряжают <span>силой и уверенностью</span>
+        </h1>
+        
+       <div class="cardso-container">
+    <!-- Карточка 1 -->
+    <div class="cardso" 
+         data-id892-title="Тренировка на спину" 
+         data-id892-calories="320 ккал"
+         data-id892-exercises="• <a href='https://www.youtube.com/watch?v=K5UVjeNCKmY' target='_blank' class='id892-video-link'>Подтягивания</a> — 4 подхода по 8 раз<br>• <a href='https://www.youtube.com/watch?v=D3E6BEuROfM' target='_blank' class='id892-video-link'>Тяга штанги в наклоне</a> — 4 подхода по 10 раз<br>• <a href='https://www.youtube.com/watch?v=1IUmfLyfzyw' target='_blank' class='id892-video-link'>Тяга верхнего блока</a> — 3 подхода по 12 раз"
+         data-id892-plan="1. Разминка плечевых суставов (5 мин).<br>2. Выполнение базовых упражнений.<br>3. Растяжка широчайших мышц.">
+        <div class="card-img-box">
+            <img src="back-view-picture.jpg" alt="Тренировка на спину" />
+        </div>
+        <div class="cardso-body">
+            <h3>Тренировка на спину</h3>
+            <p>Подробнее...</p>
+        </div>
+        <div class="cardso-footer"></div>
+    </div>
+
+    <!-- Карточка 2 -->
+    <div class="cardso" 
+         data-id892-title="Тренировка на пресс" 
+         data-id892-calories="180 ккал"
+         data-id892-exercises="• <a href='https://www.youtube.com/watch?v=H8xSHCAjM-I' target='_blank' class='id892-video-link'>Скручивания</a> — 3 подхода по 20 раз<br>• <a href='https://www.youtube.com/watch?v=0JtBS11DGDk' target='_blank' class='id892-video-link'>Планка</a> — 3 подхода по 1 минуте<br>• <a href='https://www.youtube.com/watch?v=QG_WypaUwDM' target='_blank' class='id892-video-link'>Подъем ног лежа</a> — 3 подхода по 15 раз"
+         data-id892-plan="1. Разогрев мышц кора.<br>2. Выполнение основного комплекса упражнений.<br>3. Статическая нагрузка в планке.">
+        <div class="card-img-box">
+            <img src="doing-abs-floor-gym.jpg" alt="Тренировка на пресс" />
+        </div>
+        <div class="cardso-body">
+            <h3>Тренировка на пресс</h3>
+            <p>Подробнее...</p>
+        </div>
+        <div class="cardso-footer"></div>
+    </div>
+
+    <!-- Карточка 3 -->
+    <div class="cardso" 
+         data-id892-title="Тренировка на растяжку" 
+         data-id892-calories="90 ккал"
+         data-id892-exercises="• <a href='https://www.youtube.com/watch?v=Nd3j6Avtv6Q' target='_blank' class='id892-video-link'>Растяжка «Кобра»</a> — 3 подхода по 30 сек<br>• <a href='https://www.youtube.com/watch?v=aQB5gX8Zn5Y' target='_blank' class='id892-video-link'>Наклоны вперед</a> — 2 минуты удержания<br>• <a href='https://www.youtube.com/watch?v=dwniWBNFZ9U' target='_blank' class='id892-video-link'>Поза ребенка</a> — 1 минута расслабления"
+         data-id892-plan="1. Плавная разминка и настройка дыхания.<br>2. Мягкое растяжение мышц ног и спины.<br>3. Финальное расслабление тела.">
+        <div class="card-img-box">
+            <img src="young-brunette-girl-wearing-sportswear.jpg" alt="Тренировка на растяжку" />
+        </div>
+        <div class="cardso-body">
+            <h3>Тренировка на растяжку</h3>
+            <p>Подробнее...</p>
+        </div>
+        <div class="cardso-footer"></div>
+    </div>
+</div>
+
+<!-- Полностью изолированное фитнес модальное окно -->
+<div id="id892-workout-modal-overlay" class="id892-modal-hidden">
+    <div class="id892-modal-content-window">
+        <button type="button" class="id892-modal-close-trigger">&times;</button>
+        <h2 id="id892-modal-text-title">Название</h2>
+        
+        <div class="id892-modal-badge">
+            🔥 Сожжённые калории: <strong id="id892-modal-text-calories">0</strong>
+        </div>
+
+        <div class="id892-modal-info-section">
+            <h3>Упражнения и подходы (нажмите на название для видео):</h3>
+            <p id="id892-modal-text-exercises"></p>
+        </div>
+
+        <div class="id892-modal-info-section">
+            <h3>План тренировки:</h3>
+            <p id="id892-modal-text-plan"></p>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</section>
+
+		</main>
+
+
+						<footer class="main-footer" id="contacts">
+			<div class="container footer-container">
+				<div class="footer-brand">
+					<div class="logo">FIT<span>LIFE</span></div>
+					<p class="footer-tagline">Ешь проще. Тренируйся умнее. Живи лучше.</p>
+				</div>
+				
+				<div class="footer-links">
+					<h4>Навигация</h4>
+					<ul>
+						<li><a href="#food">Еда</a></li>
+						<li><a href="#workouts">Тренировки</a></li>
+						<li><a href="#contacts">Контакты</a></li>
+					</ul>
+				</div>
+				
+				<div class="footer-contacts">
+					<h4>Связаться с нами</h4>
+					<p>Email: <a href="mailto:karinakoshevak19@gmail.com">karinakoshevak19</a></p>
+					<div class="social-icons">
+						<a href="#" aria-label="Telegram">TG</a>
+						<a href="#" aria-label="VK">VK</a>
+						<a href="#" aria-label="YouTube">IN</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="footer-bottom">
+				<div class="footer-bottom-content">
+					<p>&copy; 2026 FITLIFE. Все права защищены.</p>
+					
+					<!-- Интегрированный блок оценки проекта -->
+					<div class="project-rating">
+						<span>Оцените мой проект:</span>
+						<button class="like-button" type="button">
+							<span id="icon-heart">♥</span>
+							<span id="count-heart">0</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		
+
+
+		<script src="script.js"></script>
+	</body>
+</html>
+
+
+		<script src="script.js"></script>
+	</body>
+</html>
